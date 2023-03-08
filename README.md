@@ -1,6 +1,6 @@
-# flashcard
+# Forum System (WIP)
 
-## create flash card
+## create threads and comments
 
 ### client : vite + react + typescript + tailwindcss
 
