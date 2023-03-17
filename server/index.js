@@ -19,7 +19,7 @@ app.get('/api', (req, res) => {
 
 const users = []
 const threadList = []
-
+// TODO: Add a GET route on the server that returns all the posts.
 app.post('/api/register', (req, res) => {
   Register(req, res, users)
 })

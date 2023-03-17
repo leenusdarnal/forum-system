@@ -71,6 +71,7 @@ const Home = () => {
             CREATE THREAD
           </button>
         </form>
+        {/* TODO:  add thead comments and reples and like component i here */}
       </main>
     </>
   )
