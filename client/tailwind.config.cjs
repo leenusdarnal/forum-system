@@ -9,6 +9,7 @@ module.exports = {
         navbarButton: '#EB993C',
         superWhite: 'fcfcfc',
         IconsColor: '#434242',
+        LikeColor: '434242',
       },
     },
   },

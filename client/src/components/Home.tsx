@@ -1,10 +1,19 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import Comments from './Comments'
+import Likes from './Likes'
 import Nav from './Nav'
 
+type Thread = {
+  id: string
+  title: string
+  userId: string
+  replies: string[]
+  likes: string[]
+}
 const Home = () => {
   const [thread, setThread] = useState('')
-  const [threadList, setThreadList] = useState([])
+  const [threadList, setThreadList] = useState<Thread[]>([])
 
   const navigate = useNavigate()
 
@@ -13,6 +22,7 @@ const Home = () => {
       method: 'POST',
       body: JSON.stringify({
         thread,
+
         userID: localStorage.getItem('_id'),
       }),
       headers: {
@@ -34,13 +44,19 @@ const Home = () => {
     setThread('')
   }
   useEffect(() => {
-    const checkUser = () => {
+    const checkUser = async () => {
       if (!localStorage.getItem('_id')) {
         console.log(`user not logged`)
-
         navigate('/')
       } else {
         console.log('Authenticated')
+        try {
+          const response = await fetch('https://localhost:4000/api/all/threads')
+          const data = await response.json()
+          setThreadList(data.threads)
+        } catch (error) {
+          console.error(error)
+        }
       }
     }
     checkUser()
@@ -72,6 +88,25 @@ const Home = () => {
           </button>
         </form>
         {/* TODO:  add thead comments and reples and like component i here */}
+
+        <div>
+          {threadList.map((thread) => (
+            <div className='flex flex-col'>
+              <p>{thread.title}</p>
+              <div>
+                <Likes
+                  numberOfLikes={thread.likes.length}
+                  threadId={thread.id}
+                />
+                <Comments
+                  numberOfComments={thread.replies.length}
+                  threadId={thread.id}
+                  title={thread.title}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
       </main>
     </>
   )
