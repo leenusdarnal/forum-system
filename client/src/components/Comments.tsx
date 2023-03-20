@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 type commentsProps = {
   numberOfComments: number
   threadId: string
+  title: string
 }
 
 const Comments = ({ numberOfComments, threadId }: commentsProps) => {
